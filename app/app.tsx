@@ -22,7 +22,7 @@ import * as storage from "./utils/storage"
 import { customFontsToLoad } from "./theme"
 import { setupReactotron } from "./services/reactotron"
 import Config from "./config"
-
+import { Ionicons } from "@expo/vector-icons"
 // Set up Reactotron, which is a free desktop app for inspecting and debugging
 // React Native apps. Learn more here: https://github.com/infinitered/reactotron
 setupReactotron({
@@ -88,13 +88,19 @@ function App(props: AppProps) {
     setTimeout(hideSplashScreen, 500)
   })
 
+  // jinhj : useFont란?
+  // -> 로드 될 때 까지 대기하는 듯
+  //    로딩 중에는 false를 반환하고 로딩이 끝나면 true를 반환
+  const [fontsLoaded] = useFonts(Ionicons.font)
   // Before we show the app, we have to wait for our state to be ready.
   // In the meantime, don't render anything. This will be the background
   // color set in native by rootView's background color.
   // In iOS: application:didFinishLaunchingWithOptions:
   // In Android: https://stackoverflow.com/a/45838109/204044
   // You can replace with your own loading component if you wish.
-  if (!rehydrated || !isNavigationStateRestored || !areFontsLoaded) return null
+
+  // 로딩이 안됐을 때 return null로 화면 표시 X
+  if (!rehydrated || !isNavigationStateRestored || !areFontsLoaded || !fontsLoaded) return null
 
   const linking = {
     prefixes: [prefix],
