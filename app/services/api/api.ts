@@ -67,6 +67,28 @@ export class Api {
       return { kind: "bad-data" }
     }
   }
+
+  async getNowPlaying() {
+    const response: ApiResponse<any> = await this.apisauce.get(
+      `/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1&region=KR`,
+      {
+        amount: API_PAGE_SIZE,
+      },
+    )
+
+    if (!response.ok) {
+      const problem = getGeneralApiProblem(response)
+      if (problem) return problem
+    }
+
+    try {
+      const data = response.data
+      return { kind: "ok", results: data.results }
+    } catch (e) {
+      __DEV__ && console.tron.log(e.message)
+      return { kind: "bad-data" }
+    }
+  }
 }
 
 // Singleton instance of the API for convenience

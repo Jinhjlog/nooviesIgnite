@@ -12,6 +12,7 @@ export const NowPlayingModel = types
   .props({
     // api데이터를 저장할 prop(변수) 추가
     // 수정
+    nowPlaying: types.optional(types.array(PlayingModel), []),
     trending: types.optional(types.array(PlayingModel), []),
   })
   .actions(withSetPropAction)
@@ -21,9 +22,18 @@ export const NowPlayingModel = types
     async getMovieTrending() {
       const results: GetQuestionsResult = await api.getMovieTrending()
       if (results.kind === "ok") {
+        self.setProp("nowPlaying", results.results)
+      } else {
+        console.tron.error(`Error fetching trending: ${JSON.stringify(results.results)}`, [])
+      }
+    },
+
+    async getMovieNowPlaying() {
+      const results: GetQuestionsResult = await api.getNowPlaying()
+      if (results.kind === "ok") {
         self.setProp("trending", results.results)
       } else {
-        console.tron.error(`Error fetching trending: ${JSON.stringify(result)}`, [])
+        console.tron.error(`Error fetching trending: ${JSON.stringify(results.results)}`, [])
       }
     },
   })) // eslint-disable-line @typescript-eslint/no-unused-vars

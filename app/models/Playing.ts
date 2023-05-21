@@ -15,7 +15,7 @@ export const PlayingModel = types
     original_title: types.string,
     overview: types.string,
     poster_path: types.string,
-    media_type: types.string,
+    media_type: types.maybe(types.string),
     genre_ids: types.array(types.number),
     popularity: types.number,
     release_date: types.string,

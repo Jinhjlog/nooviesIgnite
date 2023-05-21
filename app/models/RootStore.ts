@@ -5,7 +5,8 @@ import { NowPlayingModel } from "./NowPlaying"
  * A RootStore model.
  */
 export const RootStoreModel = types.model("RootStore").props({
-  trendingStore: types.optional(NowPlayingModel, {} as any),
+  nowPlayingData: types.optional(NowPlayingModel, {} as any),
+  trendingData: types.optional(NowPlayingModel, {} as any),
 })
 
 /**

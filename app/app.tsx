@@ -12,7 +12,7 @@
 import "./i18n"
 import "./utils/ignoreWarnings"
 import { useFonts } from "expo-font"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
 import * as Linking from "expo-linking"
 import { useInitialRootStore } from "./models"
@@ -23,6 +23,10 @@ import { customFontsToLoad } from "./theme"
 import { setupReactotron } from "./services/reactotron"
 import Config from "./config"
 import { Ionicons } from "@expo/vector-icons"
+import auth from "@react-native-firebase/auth"
+import { View, Text } from "react-native"
+import { TextInput } from "react-native-gesture-handler"
+
 // Set up Reactotron, which is a free desktop app for inspecting and debugging
 // React Native apps. Learn more here: https://github.com/infinitered/reactotron
 setupReactotron({
@@ -76,6 +80,25 @@ function App(props: AppProps) {
     isRestored: isNavigationStateRestored,
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
 
+  /**
+   * firebase Auth
+   */
+  const [login, setLogin] = useState(false)
+
+  useEffect(() => {
+    // 유저가 로그인 중인지 아닌지 파악
+    auth().onAuthStateChanged((user) => {
+      if (user) {
+        setLogin(true)
+      } else {
+        setLogin(false)
+      }
+    })
+  }, [])
+  /**
+   * firbase Auth end
+   */
+
   const [areFontsLoaded] = useFonts(customFontsToLoad)
 
   const { rehydrated } = useInitialRootStore(() => {
@@ -111,11 +134,23 @@ function App(props: AppProps) {
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
-        <AppNavigator
-          linking={linking}
-          initialState={initialNavigationState}
-          onStateChange={onNavigationStateChange}
-        />
+        {login ? (
+          <AppNavigator
+            linking={linking}
+            initialState={initialNavigationState}
+            onStateChange={onNavigationStateChange}
+          />
+        ) : (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text>로그인화면</Text>
+          </View>
+        )}
       </ErrorBoundary>
     </SafeAreaProvider>
   )

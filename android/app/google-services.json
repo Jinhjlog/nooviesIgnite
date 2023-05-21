@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "346130538705",
+    "project_id": "nooviesignite",
+    "storage_bucket": "nooviesignite.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346130538705:android:997522d05d4baab69365f0",
+        "android_client_info": {
+          "package_name": "com.nooviesignite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346130538705-n2n7alopcgioi7h44oh23ekoith5tk8h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nooviesignite",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "346130538705-k5g4v8lcu7arp5oe8v3jqt73h79ghm3j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoPm7I6uKLY7liPATGOHpFV7BSpa2Tv6E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346130538705-k5g4v8lcu7arp5oe8v3jqt73h79ghm3j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
